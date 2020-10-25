@@ -1,0 +1,31 @@
+{
+  "name": "anime-manager-backend",
+  "version": "1.0.0",
+  "description": "REST API for Anime Manager",
+  "main": "server.js",
+  "scripts": {
+    "start": "set NODE_ENV=production && node server",
+    "dev": "set NODE_ENV=development && nodemon server"
+  },
+  "author": "Shayan Chatterjee",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.20.0",
+    "bcryptjs": "^2.4.3",
+    "colors": "^1.4.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-mongo-sanitize": "^2.0.0",
+    "helmet": "^4.1.1",
+    "hpp": "^0.2.3",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.10.6",
+    "morgan": "^1.10.0",
+    "node-sass": "^4.14.1",
+    "xss-clean": "^0.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
