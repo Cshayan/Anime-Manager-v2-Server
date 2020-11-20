@@ -38,6 +38,9 @@ app.use(hpp());
 app.use(xss());
 
 /* Route Settings */
+app.get("/", (req, res) =>
+  res.send("Anime Manager Backend API running in PROD.")
+);
 app.use("/api/v1/auth", authRoute);
 app.use("/api/v1/features", animeRoute);
 
