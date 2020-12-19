@@ -27,6 +27,12 @@ exports.searchAnime = asyncHandler(async (req, res, next) => {
       data: data.results,
     });
   } catch (err) {
+    if (err.response.status === 404) {
+      return res.status(200).json({
+        success: true,
+        data: [],
+      });
+    }
     return next(new ErrorResponse("Anime information cannot be fetched.", 500));
   }
 });
