@@ -66,3 +66,45 @@ exports.getAnimeReviews = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse("Anime review cannot be fetched.", 500));
   }
 });
+
+exports.getAnimeWatchlistStats = asyncHandler(async (req, res, next) => {
+  // Get the anime watchlist of the user
+  const animeWatchlist = await Anime.find({ user: req.user.id }).select(
+    "-user"
+  );
+
+  const statusEnum = {
+    Completed: "Completed",
+    Watching: "Watching",
+    OnHold: "On Hold",
+    Unwatched: "Unwatched",
+    Dropped: "Dropped",
+  };
+
+  const completedWatchlistCount = animeWatchlist.filter(
+    (anime) => anime.animeStatus === statusEnum.Completed
+  ).length;
+  const watchingWatchlistCount = animeWatchlist.filter(
+    (anime) => anime.animeStatus === statusEnum.Watching
+  ).length;
+  const onHoldWatchlistCount = animeWatchlist.filter(
+    (anime) => anime.animeStatus === statusEnum.OnHold
+  ).length;
+  const unwatchedWatchlistCount = animeWatchlist.filter(
+    (anime) => anime.animeStatus === statusEnum.Unwatched
+  ).length;
+  const droppedWatchlistCount = animeWatchlist.filter(
+    (anime) => anime.animeStatus === statusEnum.Dropped
+  ).length;
+  const totalCount = animeWatchlist.length;
+
+  return res.status(200).json({
+    success: true,
+    totalCount,
+    completedWatchlistCount,
+    watchingWatchlistCount,
+    onHoldWatchlistCount,
+    unwatchedWatchlistCount,
+    droppedWatchlistCount,
+  });
+});

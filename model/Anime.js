@@ -23,6 +23,10 @@ const AnimeSchema = new mongoose.Schema({
       "On Hold",
     ],
   },
+  urlToWatch: {
+    type: String,
+    default: "#",
+  },
   addedAt: {
     type: Date,
     default: Date.now,

@@ -14,6 +14,7 @@ const {
 const {
   getAnimeDetails,
   getAnimeReviews,
+  getAnimeWatchlistStats,
 } = require("../../../../controller/api/v1/features/animeDetailsController");
 
 // Protect auth middleware
@@ -27,5 +28,6 @@ router.route("/deleteFromWatchlist/:id").delete(protect, deleteFromWatchlist);
 router.route("/updateWatchlist/:id").put(protect, updateWatchlist);
 router.route("/anime-details/:id").get(protect, getAnimeDetails);
 router.route("/anime-review/:id").get(protect, getAnimeReviews);
+router.route("/getWatchlistStats").get(protect, getAnimeWatchlistStats);
 
 module.exports = router;
