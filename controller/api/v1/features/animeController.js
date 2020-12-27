@@ -89,9 +89,9 @@ exports.getWatchlist = asyncHandler(async (req, res, next) => {
     .select("-user")
     .sort({ addedAt: -1 });
 
-  if (!animeWatchlist || animeWatchlist.length === 0) {
-    return next(new ErrorResponse("No watchlist found for the user.", 404));
-  }
+  // if (!animeWatchlist || animeWatchlist.length === 0) {
+  //   return next(new ErrorResponse("No watchlist found for the user.", 404));
+  // }
 
   return res.status(200).json({
     success: true,
