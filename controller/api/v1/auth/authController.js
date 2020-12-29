@@ -165,6 +165,114 @@ exports.verifyAccount = asyncHandler(async (req, res, next) => {
   }
 });
 
+/*
+ *  POST api/v1/auth/forgot-password
+ *  Purpose:- Forgot Password - Send email with reset link
+ *  Access:- Public
+ */
+exports.forgotPassword = asyncHandler(async (req, res, next) => {
+  const { email } = req.body;
+
+  // Check user with that email exists in DB
+  if (!email) {
+    return next(
+      new ErrorResponse("Email must be provided to reset your password", 400)
+    );
+  }
+
+  // find the user with the provided email
+  const user = await User.findOne({ email }).select("+password");
+
+  if (!user) {
+    return next(new ErrorResponse("No account exists with such email.", 401));
+  }
+
+  // Here we generate a token and then send email with that token
+  const resetPasswordToken = randomstring.generate(7);
+
+  // Email options
+  const options = {
+    email: email ? email : "",
+    subject: "AnimeManager - Reset your password",
+    templateName: "forgot-password.html",
+  };
+
+  // Generate link to verify account in frontend
+  const forgotPasswordLink =
+    process.env.NODE_ENV == "production"
+      ? `https://anime-manager-v2.netlify.app/reset-password/?email=${email}&token=${resetPasswordToken}`
+      : `http://localhost:3000/reset-password/?email=${email}&token=${resetPasswordToken}`;
+
+  // data needs to be send to email after registering
+  const dataToSend = { forgotPasswordLink, name: user.name };
+
+  // send email
+  sendEmail(options, dataToSend);
+
+  // update the token in DB matching to that email provided
+  const updatedUser = await User.findOneAndUpdate(
+    { email },
+    { resetPasswordToken },
+    {
+      new: true,
+    }
+  );
+
+  // send response
+  res.status(200).json({
+    success: true,
+    message: "Check your email to reset your password!",
+  });
+});
+
+/*
+ *  POST api/v1/auth/reset-password
+ *  Purpose:- Reset Password
+ *  Access:- Public
+ */
+exports.resetPassword = asyncHandler(async (req, res, next) => {
+  const { email, token, newPassword } = req.body;
+
+  // Check user with that email exists in DB
+  if (!email) {
+    return next(
+      new ErrorResponse("Email must be provided to reset your password", 400)
+    );
+  }
+
+  // check password is provided or not
+  if (!newPassword) {
+    return next(new ErrorResponse("Provide a new password", 400));
+  }
+
+  // check if token is provided or not
+  if (!token) {
+    return next(
+      new ErrorResponse("Provide the token to reset the password", 400)
+    );
+  }
+
+  // find the user with the provided email
+  const user = await User.findOne({ email }).select("+password");
+
+  if (!user) {
+    return next(new ErrorResponse("No account exists with such email.", 401));
+  }
+
+  // if the token matches
+  if (user.resetPasswordToken === token) {
+    user.resetPasswordToken = null; // set the resetPasswordToken to null
+    user.password = newPassword; // update the new password
+    await user.save(); // update the DB
+    res.status(200).json({
+      success: true,
+      message: "Your password has been reset. Log in with your new password!",
+    });
+  } else {
+    return next(new ErrorResponse("Please provide a valid token.", 401));
+  }
+});
+
 // Send Response with token
 const sendToken = (user, statusCode, res) => {
   const token = user.generateJWT();

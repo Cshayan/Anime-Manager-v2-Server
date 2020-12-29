@@ -29,6 +29,7 @@ const UserSchema = new mongoose.Schema({
     default: false,
   },
   verifiedToken: String,
+  resetPasswordToken: String,
   registeredAt: {
     type: Date,
     default: Date.now,

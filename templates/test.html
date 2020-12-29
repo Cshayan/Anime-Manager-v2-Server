@@ -1,487 +1,301 @@
-<!DOCTYPE html>
-<html
-  lang="en"
-  xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:v="urn:schemas-microsoft-com:vml"
-  xmlns:o="urn:schemas-microsoft-com:office:office"
->
-  <head>
-    <meta charset="utf-8" />
-    <!-- utf-8 works for most cases -->
-    <meta name="viewport" content="width=device-width" />
-    <!-- Forcing initial-scale shouldn't be necessary -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <!-- Use the latest (edge) version of IE rendering engine -->
-    <meta name="x-apple-disable-message-reformatting" />
-    <!-- Disable auto-scale in iOS 10 Mail entirely -->
-    <title></title>
-    <!-- The title tag shows in email notifications, like Android 4.4. -->
-
-    <link
-      href="https://fonts.googleapis.com/css?family=Lato:300,400,700"
-      rel="stylesheet"
-    />
-
-    <!-- CSS Reset : BEGIN -->
-    <style>
-      /* What it does: Remove spaces around the email design added by some email clients. */
-      /* Beware: It can remove the padding / margin and add a background color to the compose a reply window. */
-      html,
-      body {
-        margin: 0 auto !important;
-        padding: 0 !important;
-        height: 100% !important;
-        width: 100% !important;
-        background: #f1f1f1;
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <!--[if !mso]><!-->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!--<![endif]-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title></title>
+  <!--[if !mso]><!-->
+  <style type="text/css">
+    @font-face {
+      font-family: "flama-condensed";
+      font-weight: 100;
+      src: url("http://assets.vervewine.com/fonts/FlamaCond-Medium.eot");
+      src: url("http://assets.vervewine.com/fonts/FlamaCond-Medium.eot?#iefix")
+          format("embedded-opentype"),
+        url("http://assets.vervewine.com/fonts/FlamaCond-Medium.woff")
+          format("woff"),
+        url("http://assets.vervewine.com/fonts/FlamaCond-Medium.ttf")
+          format("truetype");
+    }
+    @font-face {
+      font-family: "Muli";
+      font-weight: 100;
+      src: url("http://assets.vervewine.com/fonts/muli-regular.eot");
+      src: url("http://assets.vervewine.com/fonts/muli-regular.eot?#iefix")
+          format("embedded-opentype"),
+        url("http://assets.vervewine.com/fonts/muli-regular.woff2")
+          format("woff2"),
+        url("http://assets.vervewine.com/fonts/muli-regular.woff")
+          format("woff"),
+        url("http://assets.vervewine.com/fonts/muli-regular.ttf")
+          format("truetype");
+    }
+    .address-description a {
+      color: #000000;
+      text-decoration: none;
+    }
+    .btn {
+      padding: 10px 15px;
+      display: inline-block;
+    }
+    .btn.btn-primary {
+      border-radius: 5px;
+      background: #5daae0;
+      color: #ffffff;
+    }
+    a {
+      text-decoration: none;
+    }
+    @media (max-device-width: 480px) {
+      .vervelogoplaceholder {
+        height: 83px;
       }
-
-      /* What it does: Stops email clients resizing small text. */
-      * {
-        -ms-text-size-adjust: 100%;
-        -webkit-text-size-adjust: 100%;
-      }
-
-      /* What it does: Centers email on Android 4.4 */
-      div[style*="margin: 16px 0"] {
-        margin: 0 !important;
-      }
-
-      /* What it does: Stops Outlook from adding extra spacing to tables. */
-      table,
-      td {
-        mso-table-lspace: 0pt !important;
-        mso-table-rspace: 0pt !important;
-      }
-
-      /* What it does: Fixes webkit padding issue. */
-      table {
-        border-spacing: 0 !important;
-        border-collapse: collapse !important;
-        table-layout: fixed !important;
-        margin: 0 auto !important;
-      }
-
-      /* What it does: Uses a better rendering method when resizing images in IE. */
-      img {
-        -ms-interpolation-mode: bicubic;
-      }
-
-      /* What it does: Prevents Windows 10 Mail from underlining links despite inline CSS. Styles for underlined links should be inline. */
-      a {
+    }
+  </style>
+  <!--<![endif]-->
+  <!--[if (gte mso 9)|(IE)]>
+    <style type="text/css">
+      .address-description a {
+        color: #000000;
         text-decoration: none;
       }
-
-      /* What it does: A work-around for email clients meddling in triggered links. */
-      *[x-apple-data-detectors],  /* iOS */
-.unstyle-auto-detected-links *,
-.aBn {
-        border-bottom: 0 !important;
-        cursor: default !important;
-        color: inherit !important;
-        text-decoration: none !important;
-        font-size: inherit !important;
-        font-family: inherit !important;
-        font-weight: inherit !important;
-        line-height: inherit !important;
-      }
-
-      /* What it does: Prevents Gmail from displaying a download button on large, non-linked images. */
-      .a6S {
-        display: none !important;
-        opacity: 0.01 !important;
-      }
-
-      /* What it does: Prevents Gmail from changing the text color in conversation threads. */
-      .im {
-        color: inherit !important;
-      }
-
-      /* If the above doesn't work, add a .g-img class to any image in question. */
-      img.g-img + div {
-        display: none !important;
-      }
-
-      /* What it does: Removes right gutter in Gmail iOS app: https://github.com/TedGoas/Cerberus/issues/89  */
-      /* Create one of these media queries for each additional viewport size you'd like to fix */
-
-      /* iPhone 4, 4S, 5, 5S, 5C, and 5SE */
-      @media only screen and (min-device-width: 320px) and (max-device-width: 374px) {
-        u ~ div .email-container {
-          min-width: 320px !important;
-        }
-      }
-      /* iPhone 6, 6S, 7, 8, and X */
-      @media only screen and (min-device-width: 375px) and (max-device-width: 413px) {
-        u ~ div .email-container {
-          min-width: 375px !important;
-        }
-      }
-      /* iPhone 6+, 7+, and 8+ */
-      @media only screen and (min-device-width: 414px) {
-        u ~ div .email-container {
-          min-width: 414px !important;
-        }
+      table {
+        border-collapse: collapse;
       }
     </style>
+  <![endif]-->
+</head>
 
-    <!-- CSS Reset : END -->
-
-    <!-- Progressive Enhancements : BEGIN -->
-    <style>
-
-      	    .primary{
-      	background: #30e3ca;
-      }
-      .bg_white{
-      	background: #ffffff;
-      }
-      .bg_light{
-      	background: #fafafa;
-      }
-      .bg_black{
-      	background: #000000;
-      }
-      .bg_dark{
-      	background: rgba(0,0,0,.8);
-      }
-      .email-section{
-      	padding:2.5em;
-      }
-
-      /*BUTTON*/
-      .btn{
-      	padding: 10px 15px;
-      	display: inline-block;
-      }
-      .btn.btn-primary{
-      	border-radius: 5px;
-      	background: #5DAAE0;
-      	color: #ffffff;
-      }
-      .btn.btn-white{
-      	border-radius: 5px;
-      	background: #ffffff;
-      	color: #000000;
-      }
-      .btn.btn-white-outline{
-      	border-radius: 5px;
-      	background: transparent;
-      	border: 1px solid #fff;
-      	color: #fff;
-      }
-      .btn.btn-black-outline{
-      	border-radius: 0px;
-      	background: transparent;
-      	border: 2px solid #000;
-      	color: #000;
-      	font-weight: 700;
-      }
-
-      h1,h2,h3,h4,h5,h6{
-      	font-family: 'Lato', sans-serif;
-      	color: #000000;
-      	margin-top: 0;
-      	font-weight: 400;
-      }
-
-      body{
-      	font-family: 'Lato', sans-serif;
-      	font-weight: 400;
-      	font-size: 15px;
-      	line-height: 1.8;
-      	color: rgba(0,0,0,.4);
-      }
-
-      a{
-      	color: #5DAAE0;
-      }
-
-      table{
-      }
-      /*LOGO*/
-
-      .logo h1{
-      	margin: 0;
-      }
-      .logo h1 a{
-      	color: #5DAAE0;
-      	font-size: 24px;
-      	font-weight: 700;
-      	font-family: 'Lato', sans-serif;
-      }
-
-      /*HERO*/
-      .hero{
-      	position: relative;
-      	z-index: 0;
-      }
-
-      .hero .text{
-      	color: rgba(0,0,0,.3);
-      }
-      .hero .text h2{
-      	color: #000;
-      	font-size: 40px;
-      	margin-bottom: 0;
-      	font-weight: 400;
-      	line-height: 1.4;
-      }
-      .hero .text h3{
-      	font-size: 24px;
-      	font-weight: 300;
-      }
-      .hero .text h2 span{
-      	font-weight: 600;
-      	color: #5DAAE0;
-      }
-
-
-      /*HEADING SECTION*/
-      .heading-section{
-      }
-      .heading-section h2{
-      	color: #000000;
-      	font-size: 28px;
-      	margin-top: 0;
-      	line-height: 1.4;
-      	font-weight: 400;
-      }
-      .heading-section .subheading{
-      	margin-bottom: 20px !important;
-      	display: inline-block;
-      	font-size: 13px;
-      	text-transform: uppercase;
-      	letter-spacing: 2px;
-      	color: rgba(0,0,0,.4);
-      	position: relative;
-      }
-      .heading-section .subheading::after{
-      	position: absolute;
-      	left: 0;
-      	right: 0;
-      	bottom: -10px;
-      	content: '';
-      	width: 100%;
-      	height: 2px;
-      	background: #30e3ca;
-      	margin: 0 auto;
-      }
-
-      .heading-section-white{
-      	color: rgba(255,255,255,.8);
-      }
-      .heading-section-white h2{
-      	font-family:
-      	line-height: 1;
-      	padding-bottom: 0;
-      }
-      .heading-section-white h2{
-      	color: #ffffff;
-      }
-      .heading-section-white .subheading{
-      	margin-bottom: 0;
-      	display: inline-block;
-      	font-size: 13px;
-      	text-transform: uppercase;
-      	letter-spacing: 2px;
-      	color: rgba(255,255,255,.4);
-      }
-
-
-      ul.social{
-      	padding: 0;
-      }
-      ul.social li{
-      	display: inline-block;
-      	margin-right: 10px;
-      }
-
-      /*FOOTER*/
-
-      .footer{
-      	border-top: 1px solid rgba(0,0,0,.05);
-      	color: rgba(0,0,0,.5);
-      }
-      .footer .heading{
-      	color: #000;
-      	font-size: 20px;
-      }
-      .footer ul{
-      	margin: 0;
-      	padding: 0;
-      }
-      .footer ul li{
-      	list-style: none;
-      	margin-bottom: 10px;
-      }
-      .footer ul li a{
-      	color: rgba(0,0,0,1);
-      }
-
-
-      @media screen and (max-width: 500px) {
-
-
-      }
-    </style>
-  </head>
-
-  <body
-    width="100%"
+<body
+  bgcolor="#e1e5e8"
+  style="
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-right: 0;
+    margin-left: 0;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-right: 0px;
+    padding-left: 0px;
+    background-color: #e1e5e8;
+  "
+>
+  <!--[if gte mso 9]>
+<center>
+<table width="600" cellpadding="0" cellspacing="0"><tr><td valign="top">
+<![endif]-->
+  <center
     style="
-      margin: 0;
-      padding: 0 !important;
-      mso-line-height-rule: exactly;
-      background-color: #f1f1f1;
+      width: 100%;
+      table-layout: fixed;
+      -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+      background-color: #e1e5e8;
     "
   >
-    <center style="width: 100%; background-color: #f1f1f1">
-      <div
+    <div
+      style="
+        max-width: 600px;
+        margin-top: 0;
+        margin-bottom: 0;
+        margin-right: auto;
+        margin-left: auto;
+      "
+    >
+      <table
+        align="center"
+        cellpadding="0"
         style="
-          display: none;
-          font-size: 1px;
-          max-height: 0px;
-          max-width: 0px;
-          opacity: 0;
-          overflow: hidden;
-          mso-hide: all;
-          font-family: sans-serif;
+          border-spacing: 0;
+          font-family: 'Muli', Arial, sans-serif;
+          color: #333333;
+          margin: 0 auto;
+          width: 100%;
+          max-width: 600px;
         "
       >
-        &zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
-      </div>
-      <div style="max-width: 600px; margin: 0 auto" class="email-container">
-        <!-- BEGIN BODY -->
-        <table
-          align="center"
-          role="presentation"
-          cellspacing="0"
-          cellpadding="0"
-          border="0"
-          width="100%"
-          style="margin: auto"
-        >
+        <tbody>
           <tr>
             <td
-              valign="top"
-              class="bg_white"
-              style="padding: 1em 2.5em 0 2.5em"
+              align="center"
+              class="vervelogoplaceholder"
+              height="143"
+              style="
+                padding-top: 0;
+                padding-bottom: 0;
+                padding-right: 0;
+                padding-left: 0;
+                height: 143px;
+                vertical-align: middle;
+              "
+              valign="middle"
             >
-              <table
-                role="presentation"
-                border="0"
-                cellpadding="0"
-                cellspacing="0"
-                width="100%"
-              >
-                <tr>
-                  <td class="logo" style="text-align: center">
-                    <h1><a href="#">Anime Manager</a></h1>
-                  </td>
-                </tr>
-              </table>
+              <span
+                class="sg-image"
+                data-imagelibrary="%7B%22width%22%3A%22160%22%2C%22height%22%3A34%2C%22alt_text%22%3A%22Verve%20Wine%22%2C%22alignment%22%3A%22%22%2C%22border%22%3A0%2C%22src%22%3A%22https%3A//marketing-image-production.s3.amazonaws.com/uploads/79d8f4f889362f0c7effb2c26e08814bb12f5eb31c053021ada3463c7b35de6fb261440fc89fa804edbd11242076a81c8f0a9daa443273da5cb09c1a4739499f.png%22%2C%22link%22%3A%22%23%22%2C%22classes%22%3A%7B%22sg-image%22%3A1%7D%7D"
+                ><a href="#" target="_blank"
+                  ><img
+                    src="https://raw.githubusercontent.com/Cshayan/Anime-Manager-v2-Client/master/src/assets/logo.png"
+                    alt=""
+                    style="
+                      width: 200px;
+                      max-width: 300px;
+                      height: auto;
+                      margin: auto;
+                      display: block;
+                    " /></a
+              ></span>
             </td>
           </tr>
-          <!-- end tr -->
+          <!-- Start of Email Body-->
           <tr>
             <td
-              valign="middle"
-              class="hero bg_white"
-              style="padding: 3em 0 2em 0"
+              class="one-column"
+              style="
+                padding-top: 0;
+                padding-bottom: 0;
+                padding-right: 0;
+                padding-left: 0;
+                background-color: #ffffff;
+              "
             >
-              <img
-                src="https://raw.githubusercontent.com/Cshayan/Anime-Manager-v2-Client/master/src/assets/logo.png"
-                alt=""
-                style="
-                  width: 200px;
-                  max-width: 300px;
-                  height: auto;
-                  margin: auto;
-                  display: block;
-                "
-              />
-            </td>
-          </tr>
-          <!-- end tr -->
-          <tr>
-            <td
-              valign="middle"
-              class="hero bg_white"
-              style="padding: 0em 0 4em 0"
-            >
-              <table>
-                <tr>
-                  <td>
-                    <div
-                      class="text"
-                      style="padding: 0 2.5em; text-align: center"
+              <!--[if gte mso 9]>
+                    <center>
+                    <table width="80%" cellpadding="20" cellspacing="30"><tr><td valign="top">
+                    <![endif]-->
+              <table style="border-spacing: 0" width="100%">
+                <tbody>
+                  <tr>
+                    <td
+                      align="center"
+                      class="inner"
+                      style="
+                        padding-top: 15px;
+                        padding-bottom: 15px;
+                        padding-right: 30px;
+                        padding-left: 30px;
+                      "
+                      valign="middle"
                     >
-                      <h2>Please verify your email</h2>
-                      <h4>
-                        Thank you for registering in AnimeManager. You can now
-                        manage all your favourite anime at one place. <br />
-
-                        Before you continue, you need to verify your account.
-                        Copy the below code and click the button to do the
-                        same.<br />
-                      </h4>
-                      <h3>Your code : <b>{{12345}}</b></h3>
-                      <p>
-                        <a href="#" class="btn btn-primary"
-                          >Click here to verify</a
+                      <span
+                        class="sg-image"
+                        data-imagelibrary="%7B%22width%22%3A%22255%22%2C%22height%22%3A93%2C%22alt_text%22%3A%22Forgot%20Password%22%2C%22alignment%22%3A%22%22%2C%22border%22%3A0%2C%22src%22%3A%22https%3A//marketing-image-production.s3.amazonaws.com/uploads/35c763626fdef42b2197c1ef7f6a199115df7ff779f7c2d839bd5c6a8c2a6375e92a28a01737e4d72f42defcac337682878bf6b71a5403d2ff9dd39d431201db.png%22%2C%22classes%22%3A%7B%22sg-image%22%3A1%7D%7D"
+                        ><img
+                          alt="Forgot Password"
+                          class="banner"
+                          height="93"
+                          src="https://marketing-image-production.s3.amazonaws.com/uploads/35c763626fdef42b2197c1ef7f6a199115df7ff779f7c2d839bd5c6a8c2a6375e92a28a01737e4d72f42defcac337682878bf6b71a5403d2ff9dd39d431201db.png"
+                          style="
+                            border-width: 0px;
+                            margin-top: 30px;
+                            width: 255px;
+                            height: 93px;
+                          "
+                          width="255"
+                      /></span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      class="inner contents center"
+                      style="
+                        padding-top: 15px;
+                        padding-bottom: 15px;
+                        padding-right: 30px;
+                        padding-left: 30px;
+                        text-align: left;
+                      "
+                    >
+                      <center>
+                        <p
+                          class="h1 center"
+                          style="
+                            margin: 0;
+                            text-align: center;
+                            font-family: 'flama-condensed', 'Arial Narrow',
+                              Arial;
+                            font-weight: 100;
+                            font-size: 30px;
+                            margin-bottom: 26px;
+                          "
                         >
-                      </p>
-                    </div>
-                  </td>
-                </tr>
+                          Forgot your password?
+                        </p>
+                        <!--[if (gte mso 9)|(IE)]> <![endif]-->
+
+                        <p
+                          class="description center"
+                          style="
+                            font-family: 'Muli', 'Arial Narrow', Arial;
+                            margin: 0;
+                            text-align: center;
+                            max-width: 320px;
+                            color: #a1a8ad;
+                            line-height: 24px;
+                            font-size: 15px;
+                            margin-bottom: 10px;
+                            margin-left: auto;
+                            margin-right: auto;
+                          "
+                        >
+                          <span
+                            style="
+                              color: rgb(161, 168, 173);
+                              font-family: Muli, 'Arial Narrow', Arial;
+                              font-size: 15px;
+                              text-align: center;
+                              background-color: rgb(255, 255, 255);
+                            "
+                            >That's okay, it happens! Click on the button below
+                            to reset your password.</span
+                          >
+                        </p>
+                        <p>
+                          <a
+                            href="{{verifyAccountLink}}"
+                            class="btn btn-primary"
+                            >Click here to verify</a
+                          >
+                        </p>
+                      </center>
+                    </td>
+                  </tr>
+                </tbody>
               </table>
+              <!--[if (gte mso 9)|(IE)]>
+                    </td></tr></table>
+                    </center>
+                    <![endif]-->
             </td>
           </tr>
-          <!-- end tr -->
-          <!-- 1 Column Text + Button : END -->
-        </table>
-        <table
-          align="center"
-          role="presentation"
-          cellspacing="0"
-          cellpadding="0"
-          border="0"
-          width="100%"
-          style="margin: auto"
-        >
+          <!-- End of Email Body-->
+          <!-- whitespace -->
+          <!-- whitespace -->
           <tr>
-            <td valign="middle" class="bg_light footer email-section">
-              <table>
-                <tr>
-                  <td valign="top" width="33.333%" style="padding-top: 20px">
-                    <table
-                      role="presentation"
-                      cellspacing="0"
-                      cellpadding="0"
-                      border="0"
-                      width="100%"
-                    >
-                      <tr>
-                        <td style="text-align: left; padding-right: 10px">
-                          <h3 class="heading">About</h3>
-                          <p>
-                            Ever found it hard to manage all your favourite
-                            anime at one place? Will not that be useful, if you
-                            have your own personalised account, can store all
-                            your favourite animes at one place, mark their
-                            watching status according to your choice, can view
-                            details of those anime in just one click!
-                          </p>
-                        </td>
-                      </tr>
-                    </table>
-                  </td>
-                </tr>
-              </table>
+            <td height="40">
+              <p style="line-height: 40px; padding: 0 0 0 0; margin: 0 0 0 0">
+                &nbsp;
+              </p>
+              <p>
+                If you have not requested for your password to reset, feel free
+                to ignore this email. But do not share this link or email with
+                anyone.
+              </p>
+              <p>&nbsp;</p>
             </td>
           </tr>
-        </table>
-      </div>
-    </center>
-  </body>
-</html>
+        </tbody>
+      </table>
+
+      
+          </td>
+        </tr>
+      </table>
+    </div>
+  </center>
+  <!--[if gte mso 9]>
+</td></tr></table>
+</center>
+<![endif]-->
+</body>
