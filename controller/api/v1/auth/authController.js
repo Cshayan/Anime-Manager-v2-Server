@@ -166,7 +166,7 @@ exports.verifyAccount = asyncHandler(async (req, res, next) => {
 });
 
 /*
- *  POST api/v1/auth/forgot-password
+ *  PUT api/v1/auth/forgot-password
  *  Purpose:- Forgot Password - Send email with reset link
  *  Access:- Public
  */
@@ -226,7 +226,7 @@ exports.forgotPassword = asyncHandler(async (req, res, next) => {
 });
 
 /*
- *  POST api/v1/auth/reset-password
+ *  PUT api/v1/auth/reset-password
  *  Purpose:- Reset Password
  *  Access:- Public
  */
@@ -271,6 +271,33 @@ exports.resetPassword = asyncHandler(async (req, res, next) => {
   } else {
     return next(new ErrorResponse("Please provide a valid token.", 401));
   }
+});
+
+/*
+ *  PUT api/v1/auth/update-password
+ *  Purpose:- Updates user password
+ *  Access:- Private
+ */
+exports.updateUserPassword = asyncHandler(async (req, res, next) => {
+  const { currentPassword, newPassword } = req.body;
+
+  // find the user
+  const user = await User.findById(req.user.id).select("+password");
+
+  // check if the current password is correct or not
+  if (!(await user.matchPassword(currentPassword))) {
+    return next(new ErrorResponse("Current password is incorrect", 401));
+  }
+
+  // else, update the new password
+  user.password = newPassword;
+  await user.save();
+
+  // send response
+  res.status(200).json({
+    status: 200,
+    message: "New password updated successfully!",
+  });
 });
 
 // Send Response with token

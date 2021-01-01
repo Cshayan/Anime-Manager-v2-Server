@@ -11,6 +11,7 @@ const {
   verifyAccount,
   forgotPassword,
   resetPassword,
+  updateUserPassword,
 } = require("../../../../controller/api/v1/auth/authController");
 
 // Protect auth middleware
@@ -23,5 +24,6 @@ router.route("/getMe").get(protect, getMe);
 router.route("/verify-account").post(verifyAccount);
 router.route("/forgot-password").put(forgotPassword);
 router.route("/reset-password").put(resetPassword);
+router.route("/update-password").put(updateUserPassword);
 
 module.exports = router;
