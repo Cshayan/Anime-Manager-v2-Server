@@ -30,6 +30,11 @@ const UserSchema = new mongoose.Schema({
   },
   verifiedToken: String,
   resetPasswordToken: String,
+  profilePicUrl: {
+    type: String,
+    default:
+      "https://raw.githubusercontent.com/Cshayan/Helpful-Online-Links/master/userPng.png",
+  },
   registeredAt: {
     type: Date,
     default: Date.now,

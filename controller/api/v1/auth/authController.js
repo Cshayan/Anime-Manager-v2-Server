@@ -7,6 +7,7 @@ const User = require("../../../../model/User");
 
 // Utils
 const sendEmail = require("../../../../utils/sendEmail");
+const { cloudinary } = require("../../../../utils/cloudinary");
 const randomstring = require("randomstring");
 
 /*
@@ -298,6 +299,50 @@ exports.updateUserPassword = asyncHandler(async (req, res, next) => {
     status: 200,
     message: "New password updated successfully!",
   });
+});
+
+/*
+ *  PUT api/v1/auth/update-profile-pic
+ *  Purpose:- Updates user profile pic
+ *  Access:- Private
+ */
+exports.updateProfilePic = asyncHandler(async (req, res, next) => {
+  const { data } = req.body;
+  try {
+    const cloudinaryResponse = await cloudinary.uploader.upload(data, {
+      upload_preset: "vbh0dqmc",
+      overwrite: true,
+      use_filename: true,
+      unique_filename: false,
+    });
+
+    // find the user
+    const user = await User.findById(req.user.id).select("+password");
+
+    if (!user) {
+      return next(
+        new ErrorResponse("You must login to upload your profile picture.", 401)
+      );
+    }
+
+    // else, update the profilePicUrl
+    user.profilePicUrl = cloudinaryResponse.secure_url;
+    await user.save();
+
+    // send response
+    res.status(200).json({
+      success: true,
+      message: "Profile picture updated!",
+      profilePicUrl: cloudinaryResponse.secure_url,
+    });
+  } catch (err) {
+    return next(
+      new ErrorResponse(
+        "Someting went wrong in updating the profile picture.",
+        401
+      )
+    );
+  }
 });
 
 // Send Response with token
