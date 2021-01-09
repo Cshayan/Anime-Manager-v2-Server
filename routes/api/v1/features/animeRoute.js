@@ -10,6 +10,7 @@ const {
   getWatchlist,
   deleteFromWatchlist,
   updateWatchlist,
+  getUserWatchlist,
 } = require("../../../../controller/api/v1/features/animeController");
 const {
   getAnimeDetails,
@@ -24,6 +25,7 @@ const { protect } = require("../../../../middleware/auth");
 router.route("/searchAnime").post(protect, searchAnime);
 router.route("/addToWatchlist").post(protect, addToWatchlist);
 router.route("/getWatchlist").get(protect, getWatchlist);
+router.route("/getUserWatchlist").post(getUserWatchlist);
 router.route("/deleteFromWatchlist/:id").delete(protect, deleteFromWatchlist);
 router.route("/updateWatchlist/:id").put(protect, updateWatchlist);
 router.route("/anime-details/:id").get(protect, getAnimeDetails);

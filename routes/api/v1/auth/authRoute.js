@@ -13,6 +13,7 @@ const {
   resetPassword,
   updateUserPassword,
   updateProfilePic,
+  getSpecificUser,
 } = require("../../../../controller/api/v1/auth/authController");
 
 // Protect auth middleware
@@ -22,6 +23,7 @@ const { protect } = require("../../../../middleware/auth");
 router.route("/signUp").post(registerUser);
 router.route("/signIn").post(loginUser);
 router.route("/getMe").get(protect, getMe);
+router.route("/getUser").post(getSpecificUser);
 router.route("/verify-account").post(verifyAccount);
 router.route("/forgot-password").put(forgotPassword);
 router.route("/reset-password").put(resetPassword);

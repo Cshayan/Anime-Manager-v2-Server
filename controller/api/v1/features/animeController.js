@@ -3,6 +3,7 @@
 const ErrorResponse = require("../../../../utils/ErrorResponse");
 const asyncHandler = require("../../../../middleware/asyncHandler");
 const Anime = require("../../../../model/Anime");
+const User = require("../../../../model/User");
 const axios = require("axios");
 
 /*
@@ -89,10 +90,23 @@ exports.getWatchlist = asyncHandler(async (req, res, next) => {
     .select("-user")
     .sort({ addedAt: -1 });
 
+  // find the user with id
+  const user = await User.findById(req.user.id);
+
+  // get the name of the user eliminating all white-space
+  const userName = user.name.replace(/\s/g, "").toLowerCase();
+
+  // Generate dynamic link to share your watchlist
+  const devLink = `http://localhost:3000/view-my-watchlist/?id=${req.user.id}&name=${userName}`;
+  const productionLik = `https://anime-manager-v2.netlify.app/view-my-watchlist/?id=${req.user.id}&name=${userName}`;
+  const shareWatchlistLink =
+    process.env.NODE_ENV === "production" ? productionLik : devLink;
+
   return res.status(200).json({
     success: true,
     count: animeWatchlist.length,
     data: animeWatchlist,
+    shareWatchlistLink,
   });
 });
 
@@ -150,5 +164,23 @@ exports.updateWatchlist = asyncHandler(async (req, res, next) => {
     success: true,
     msg: "Anime updated successfully",
     data: updatedAnime,
+  });
+});
+
+/*
+ * GET /api/v1/features/getUserWatchlist
+ * Access - Public
+ * Desc - Fetches watchlist details of a user
+ */
+exports.getUserWatchlist = asyncHandler(async (req, res, next) => {
+  const { id } = req.body;
+  const animeWatchlist = await Anime.find({ user: id })
+    .select("-user")
+    .sort({ addedAt: -1 });
+
+  return res.status(200).json({
+    success: true,
+    count: animeWatchlist.length,
+    data: animeWatchlist,
   });
 });

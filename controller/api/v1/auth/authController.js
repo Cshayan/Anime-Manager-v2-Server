@@ -345,6 +345,32 @@ exports.updateProfilePic = asyncHandler(async (req, res, next) => {
   }
 });
 
+/*
+ *  PUT api/v1/auth/getUser
+ *  Purpose:- Gets the info of any particular user
+ *  Access:- Public
+ */
+exports.getSpecificUser = asyncHandler(async (req, res, next) => {
+  const { id, name } = req.body;
+
+  const user = await User.findById(id).select(
+    "-password -verifiedToken -resetPasswordToken -isVerified"
+  );
+
+  if (!user) {
+    return next(new ErrorResponse("No user exists with such ID.", 401));
+  }
+
+  if (name && user.name.replace(/\s/g, "").toLowerCase() !== name) {
+    return next(new ErrorResponse("Invalid details provided", 401));
+  }
+
+  res.status(200).json({
+    success: true,
+    user,
+  });
+});
+
 // Send Response with token
 const sendToken = (user, statusCode, res) => {
   const token = user.generateJWT();
