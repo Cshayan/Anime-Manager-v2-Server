@@ -31,9 +31,9 @@ router.route('/getUserWatchlist').post(getUserWatchlist)
 router.route('/deleteFromWatchlist/:id').delete(protect, deleteFromWatchlist)
 router.route('/updateWatchlist/:id').put(protect, updateWatchlist)
 router.route('/anime-details/:id').get(protect, getAnimeDetails)
-router.route('/anime-review/:id').get(protect, getAnimeReviews)
+router.route('/anime-review/:id').get(getAnimeReviews)
 router.route('/getWatchlistStats').get(protect, getAnimeWatchlistStats)
-router.route('/top-animes/anime/:page/:type').get(getTopAnimes)
-router.route('/season-animes/anime/:year/:season').get(getSeasonAnimes)
+router.route('/top-animes/anime/:page/:type/:limit').get(getTopAnimes)
+router.route('/season-animes/anime/:year/:season/:limit').get(getSeasonAnimes)
 
 module.exports = router

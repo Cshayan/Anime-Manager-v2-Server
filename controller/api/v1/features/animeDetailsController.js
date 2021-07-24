@@ -7,7 +7,7 @@ const axios = require('axios')
 
 /*
  * POST /api/v1/features/anime-details/:id
- * Access - Private
+ * Access - Private and Public
  * Desc - Searches for an anime from an external API
  */
 exports.getAnimeDetails = asyncHandler(async (req, res, next) => {
@@ -21,12 +21,14 @@ exports.getAnimeDetails = asyncHandler(async (req, res, next) => {
     )
   }
 
-  // Check if for the user the anime is already present in the DB or not
-  const anime = await Anime.find({ malId: id, user: req.user.id })
-  if (anime.length === 0) {
-    isAnimeAlreadyPresent = false
-  } else {
-    isAnimeAlreadyPresent = true
+  if (req.user) {
+    // Check if for the user the anime is already present in the DB or not
+    const anime = await Anime.find({ malId: id, user: req.user.id })
+    if (anime.length === 0) {
+      isAnimeAlreadyPresent = false
+    } else {
+      isAnimeAlreadyPresent = true
+    }
   }
 
   try {
@@ -108,20 +110,23 @@ exports.getAnimeWatchlistStats = asyncHandler(async (req, res, next) => {
 })
 
 /*
- * GET /api/v1/features/top-animes/anime/:page/:type
+ * GET /api/v1/features/top-animes/anime/:page/:type/:limit
  * Access - Public
  * Desc - Searches for the top animes (upcoming and airing based on the type)
  */
 exports.getTopAnimes = asyncHandler(async (req, res, next) => {
-  const { page, type } = req.params
+  const { page, type, limit } = req.params
 
   const endPointToCall = `https://api.jikan.moe/v3/top/anime/${page}/${type}`
 
   try {
-    const { data } = await axios.get(endPointToCall)
+    const { data: { top: topAnimes = [] } = {} } = await axios.get(
+      endPointToCall
+    )
+
     return res.status(200).json({
       success: true,
-      data,
+      topAnimes: topAnimes.slice(0, limit),
     })
   } catch (err) {
     return next(new ErrorResponse('Top animes cannot be fetched.', 500))
@@ -134,15 +139,18 @@ exports.getTopAnimes = asyncHandler(async (req, res, next) => {
  * Desc - Searches for the season animes
  */
 exports.getSeasonAnimes = asyncHandler(async (req, res, next) => {
-  const { year, season } = req.params
+  const { year, season, limit } = req.params
 
   const endPointToCall = `https://api.jikan.moe/v3/season/${year}/${season}`
 
   try {
-    const { data } = await axios.get(endPointToCall)
+    const { data: { anime: seasonAnimes = [] } = {} } = await axios.get(
+      endPointToCall
+    )
+
     return res.status(200).json({
       success: true,
-      data,
+      seasonAnimes: seasonAnimes.slice(0, limit),
     })
   } catch (err) {
     return next(new ErrorResponse('Season animes cannot be fetched.', 500))
