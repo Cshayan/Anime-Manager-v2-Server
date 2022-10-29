@@ -12,7 +12,7 @@ const axios = require("axios");
  * Desc - Searches for an anime from an external API
  */
 exports.searchAnime = asyncHandler(async (req, res, next) => {
-  const animeURL = "https://api.jikan.moe/v3/search/anime";
+  const animeURL = "https://api.jikan.moe/v4/anime";
   const { animeName } = req.body;
 
   if (!animeName) {
@@ -25,7 +25,7 @@ exports.searchAnime = asyncHandler(async (req, res, next) => {
     const { data } = await axios.get(`${animeURL}?q=${animeName}&limit=6`);
     return res.status(200).json({
       success: true,
-      data: data.results,
+      data: data.data,
     });
   } catch (err) {
     if (err.response.status === 404) {
